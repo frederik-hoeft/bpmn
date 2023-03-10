@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0fhrk1h" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.7.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
   <decision id="Decision_Evaluation" name="Evaluation">
-    <variable id="InformationItem_1f7pfvq" name="score" typeRef="double" />
+    <variable id="InformationItem_1f7pfvq" name="grade" typeRef="double" />
     <literalExpression id="LiteralExpression_0pgxite" expressionLanguage="javascript">
       <text>(() =&gt; {
     const title_words = field_title.split(/\b/).map(s =&gt; s.trim()).filter(s =&gt; /^[0-9A-Za-züäöÜÄÖß]+?$/.test(s));
@@ -13,7 +13,32 @@
             words_found++;
         }
     });
-    return title_words.length === 0 ? 0 : words_found / title_words.length;
+    if (title_words.length === 0)
+    {
+        return 5.0;
+    }
+    const percentage = words_found / title_words.length;
+    return percentage &lt; 0.5
+        ? 5.0
+        : percentage &lt; 0.526
+            ? 4.0
+            : percentage &lt; 0.579
+                ? 3.7
+                : percentage &lt; 0.631
+                    ? 3.3
+                    : percentage &lt; 0.682
+                        ? 3.0
+                        : percentage &lt; 0.737
+                            ? 2.7
+                            : percentage &lt; 0.79 
+                                ? 2.3 
+                                : percentage &lt; 0.843 
+                                    ? 2.0 
+                                    : percentage &lt; 0.895 
+                                        ? 1.7 
+                                        : percentage &lt; 0.949 
+                                            ? 1.3 
+                                            : 1.0;
 })();</text>
     </literalExpression>
   </decision>

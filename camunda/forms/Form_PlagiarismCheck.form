@@ -6,6 +6,14 @@
       "id": "Field_0y6xnfq"
     },
     {
+      "label": "Automatic plagiarism checks indicate that the following portion of the context are plagiarized:",
+      "type": "textfield",
+      "id": "Field_0w9isvt",
+      "key": "plagiarism_percentage",
+      "disabled": true,
+      "defaultValue": "N/A"
+    },
+    {
       "label": "Text:",
       "type": "textfield",
       "id": "Field_0bgxbn8",

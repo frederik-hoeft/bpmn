@@ -9,5 +9,30 @@
             words_found++;
         }
     });
-    return title_words.length === 0 ? 0 : words_found / title_words.length;
-})("Some content sick", "some sick. title: more text 2134");
+    if (title_words.length === 0)
+    {
+        return 5.0;
+    }
+    const percentage = words_found / title_words.length;
+    return percentage < 0.5
+        ? 5.0
+        : percentage < 0.526
+            ? 4.0
+            : percentage < 0.579
+                ? 3.7
+                : percentage < 0.631
+                    ? 3.3
+                    : percentage < 0.682
+                        ? 3.0
+                        : percentage < 0.737
+                            ? 2.7
+                            : percentage < 0.79 
+                                ? 2.3 
+                                : percentage < 0.843 
+                                    ? 2.0 
+                                    : percentage < 0.895 
+                                        ? 1.7 
+                                        : percentage < 0.949 
+                                            ? 1.3 
+                                            : 1.0;
+})("some sick. title: more text", "some sick. title: more text 2134");

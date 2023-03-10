@@ -14,13 +14,9 @@ public class CheckPlagiarismHandler : IExternalTaskHandler
 
     private static IExecutionResult Handle(ExternalTask externalTask)
     {
-        if (externalTask.Variables?.TryGetValue(CONTENT_VARIABLE_NAME, out Variable? contentVariable) is not true || contentVariable.Value is null)
+        if (!externalTask.TryGetVariable(CONTENT_VARIABLE_NAME, out string? content, out BpmnErrorResult? error))
         {
-            return new BpmnErrorResult("NO_CONTENT", $"Could not retrieve variable '{CONTENT_VARIABLE_NAME}' or value was null!");
-        }
-        if (contentVariable.Value is not string content)
-        {
-            return new BpmnErrorResult("INCORRECT_CONTENT_TYPE", $"Exprected variable '{CONTENT_VARIABLE_NAME}' to be of type {typeof(string).Name}, but found {contentVariable.Value.GetType().Name}!");
+            return error;
         }
 
         double percentage = PlagiarismChecker.EvaluateContent(content);

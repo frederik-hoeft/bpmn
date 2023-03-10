@@ -20,10 +20,10 @@
       <bpmn:lane id="Lane_01hagpf" name="Student">
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_SubmitAssignment</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1x45o71</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_01j3e2t</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0ccxgi0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0pyfwz2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1x45o71</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1">
@@ -49,10 +49,6 @@
     <bpmn:sequenceFlow id="Flow_1htrek1" name="yes" sourceRef="Gateway_1khbu6v" targetRef="Activity_0pyfwz2">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${field_content == ""}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:userTask id="Activity_1x45o71" name="Passed">
-      <bpmn:incoming>Flow_1kavn0m</bpmn:incoming>
-      <bpmn:outgoing>Flow_1npkuy6</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:endEvent id="Event_01j3e2t" name="Passed">
       <bpmn:incoming>Flow_1npkuy6</bpmn:incoming>
     </bpmn:endEvent>
@@ -63,10 +59,10 @@
     <bpmn:sequenceFlow id="Flow_1npkuy6" sourceRef="Activity_1x45o71" targetRef="Event_01j3e2t" />
     <bpmn:sequenceFlow id="Flow_05j0lcg" sourceRef="Activity_0bjbpan" targetRef="Gateway_09d9pww" />
     <bpmn:sequenceFlow id="Flow_17tl4pm" name="no" sourceRef="Gateway_09d9pww" targetRef="Activity_0pyfwz2">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${score &lt; 0.5}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${grade &gt;= 5.0}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1kavn0m" name="yes" sourceRef="Gateway_09d9pww" targetRef="Activity_1x45o71">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${score &gt;= 0.5}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${grade &lt; 5.0}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Activity_135bbzt" name="Check Plagiarism" camunda:type="external" camunda:topic="checkPlagiarism">
       <bpmn:incoming>Flow_189y2fa</bpmn:incoming>
@@ -121,7 +117,7 @@
     <bpmn:sequenceFlow id="Flow_09biprg" name="yes" sourceRef="Gateway_1cl50gh" targetRef="Activity_0pyfwz2">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${field_is_plagiarized == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:businessRuleTask id="Activity_0bjbpan" name="Evaluate&#10;Assignment" camunda:resultVariable="score" camunda:decisionRef="Decision_Evaluation" camunda:decisionRefBinding="deployment" camunda:mapDecisionResult="singleEntry">
+    <bpmn:businessRuleTask id="Activity_0bjbpan" name="Evaluate&#10;Assignment" camunda:resultVariable="grade" camunda:decisionRef="Decision_Evaluation" camunda:decisionRefBinding="deployment" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>Flow_1lt66mh</bpmn:incoming>
       <bpmn:incoming>Flow_1v629m1</bpmn:incoming>
       <bpmn:outgoing>Flow_05j0lcg</bpmn:outgoing>
@@ -131,13 +127,18 @@
       <bpmn:outgoing>Flow_17tl4pm</bpmn:outgoing>
       <bpmn:outgoing>Flow_1kavn0m</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_0pyfwz2" name="Failed">
+    <bpmn:serviceTask id="Activity_0pyfwz2" name="Send Failed Email" camunda:type="external" camunda:topic="sendFailedEmail">
       <bpmn:incoming>Flow_17tl4pm</bpmn:incoming>
       <bpmn:incoming>Flow_1htrek1</bpmn:incoming>
       <bpmn:incoming>Flow_19s7z2h</bpmn:incoming>
       <bpmn:incoming>Flow_09biprg</bpmn:incoming>
       <bpmn:outgoing>Flow_1t5pkj8</bpmn:outgoing>
-    </bpmn:userTask>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1x45o71" name="Send Passed Email" camunda:type="external" camunda:topic="sendPassedEmail">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1kavn0m</bpmn:incoming>
+      <bpmn:outgoing>Flow_1npkuy6</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:error id="Error_03irhci" name="Error_NO_CONTENT" errorCode="NO_CONTENT" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -166,10 +167,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="451" y="482" width="78" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1kkqvo3" bpmnElement="Activity_1x45o71">
-        <dc:Bounds x="1510" y="210" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_01j3e2t_di" bpmnElement="Event_01j3e2t">
         <dc:Bounds x="1672" y="232" width="36" height="36" />
@@ -217,8 +214,13 @@
           <dc:Bounds x="1243" y="482" width="75" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1lkbnbf_di" bpmnElement="Activity_0pyfwz2">
+      <bpmndi:BPMNShape id="Activity_0tlnyii_di" bpmnElement="Activity_0pyfwz2">
         <dc:Bounds x="1510" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ksyjxa_di" bpmnElement="Activity_1x45o71">
+        <dc:Bounds x="1510" y="210" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_04ymtzl_di" bpmnElement="Event_1bwxott">
         <dc:Bounds x="592" y="472" width="36" height="36" />
