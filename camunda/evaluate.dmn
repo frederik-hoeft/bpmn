@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0fhrk1h" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.7.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <decision id="Decision_Evaluation" name="Evaluation">
+    <variable id="InformationItem_1f7pfvq" name="score" typeRef="double" />
+    <literalExpression id="LiteralExpression_0pgxite" expressionLanguage="javascript">
+      <text>(() =&gt; {
+    const title_words = field_title.split(/\b/).map(s =&gt; s.trim()).filter(s =&gt; /^[0-9A-Za-züäöÜÄÖß]+?$/.test(s));
+    var words_found = 0;
+    title_words.forEach(word =&gt; {
+        if (field_content.includes(word)) {
+            words_found++;
+        }
+    });
+    return title_words.length === 0 ? 0 : words_found / title_words.length;
+})();</text>
+    </literalExpression>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_0a7te55" dmnElementRef="Decision_Evaluation">
+        <dc:Bounds height="80" width="180" x="150" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

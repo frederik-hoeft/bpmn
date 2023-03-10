@@ -1,0 +1,29 @@
+{
+  "components": [
+    {
+      "label": "Title",
+      "type": "textfield",
+      "id": "Field_0i3sp2q",
+      "key": "field_title",
+      "validate": {
+        "required": true
+      },
+      "properties": {}
+    },
+    {
+      "label": "Content",
+      "type": "textfield",
+      "id": "Field_1mnhou5",
+      "key": "field_content"
+    }
+  ],
+  "type": "default",
+  "id": "Form_SubmitAssignment",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.7.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.18.0",
+  "schemaVersion": 6
+}
