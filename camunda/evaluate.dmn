@@ -6,8 +6,10 @@
       <text>(() =&gt; {
     const title_words = field_title.split(/\b/).map(s =&gt; s.trim()).filter(s =&gt; /^[0-9A-Za-züäöÜÄÖß]+?$/.test(s));
     var words_found = 0;
-    title_words.forEach(word =&gt; {
-        if (field_content.includes(word)) {
+    title_words.forEach(word =&gt; 
+    {
+        if (field_content.toLowerCase().includes(word.toLowerCase()))
+        {
             words_found++;
         }
     });

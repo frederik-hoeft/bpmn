@@ -1,0 +1,38 @@
+{
+  "components": [
+    {
+      "text": "# Manual Plagiarism Check",
+      "type": "text",
+      "id": "Field_0y6xnfq"
+    },
+    {
+      "label": "Text:",
+      "type": "textfield",
+      "id": "Field_0bgxbn8",
+      "key": "field_content",
+      "disabled": true
+    },
+    {
+      "label": "Contains plagiarized content",
+      "type": "checkbox",
+      "id": "Field_1sn40sh",
+      "key": "field_is_plagiarized"
+    },
+    {
+      "action": "submit",
+      "label": "Submit",
+      "type": "button",
+      "id": "Field_09fkohn",
+      "key": "field_0vv4xrj"
+    }
+  ],
+  "type": "default",
+  "id": "Form_PlagiarismCheck",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.7.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.18.0",
+  "schemaVersion": 6
+}

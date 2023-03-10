@@ -4,10 +4,10 @@
     var words_found = 0;
     title_words.forEach(word => 
     {
-        if (field_content.includes(word))
+        if (field_content.toLowerCase().includes(word.toLowerCase()))
         {
             words_found++;
         }
     });
     return title_words.length === 0 ? 0 : words_found / title_words.length;
-})("some content sick", "some sick. title: more text 2134");
+})("Some content sick", "some sick. title: more text 2134");

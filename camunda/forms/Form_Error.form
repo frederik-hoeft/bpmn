@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "text": "# An error occurred:",
+      "type": "text",
+      "id": "Field_0mev3bx"
+    },
+    {
+      "label": "Message:",
+      "type": "textfield",
+      "id": "Field_127ibc0",
+      "key": "ERROR_MESSAGE",
+      "disabled": true
+    },
+    {
+      "action": "submit",
+      "label": "Ok",
+      "type": "button",
+      "id": "Field_0w7i4yv",
+      "key": "field_1rfjqt0"
+    }
+  ],
+  "type": "default",
+  "id": "Form_Error",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.7.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.18.0",
+  "schemaVersion": 6
+}
