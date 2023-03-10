@@ -1,5 +1,4 @@
 ﻿using CamundaCheckPlagiarism.Checker.Data;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace CamundaCheckPlagiarism.Checker;
