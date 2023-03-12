@@ -33,4 +33,4 @@ The simulated assignment evaluation process follows the following steps:
 
 ## Building from source
 
-- Visual Studio 2022 and .NET 6 are required.
+- Visual Studio 2022 and .NET 6+ are required.
