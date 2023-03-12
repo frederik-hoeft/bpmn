@@ -29,7 +29,7 @@ The simulated assignment evaluation process follows the following steps:
 2. Configure the `smtp-settings.json` file to contain a valid email to be used for sending "You Passed" or "You Failed" emails.
 3. Camunda Platform 7 should be running locally on port 8080.
 4. Start the .NET worker service (`CamundaCheckPlagiarism.exe`)
-5. Deploy the Camunda process instance
+5. Deploy the Camunda BPMN process instance (including all required dependencies (`*.dmn`, `*.form`))
 
 ## Building from source
 
