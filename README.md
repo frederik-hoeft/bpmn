@@ -10,6 +10,7 @@ The simulated assignment evaluation process follows the following steps:
 
 1. Student submits an "assignemnt" via Camunda Forms
 2. A plagiarism check is simulated via an external C# worker service
+    - A simple `data.json` file is used for the plagiarism check.
     - A manual plagiarism check by the examiner is requested if more than 5% and less than 50% of the content appear to be plagiarized (or if an exception occurs in the worker service).
 3. The assignment is graded in a JavaScript-based DMN sub-activity.
     - Grading is purely simulated on whether the content of the assignment contains the same keywords used in the title.
